@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">SimpleWeather</string>
+    <string name="weather_date">Date: %s</string>
+    <string name="weather_average_temp">Average temperature: %d°C</string>
+    <string name="weather_pressure">Pressure: %d</string>
+    <string name="weather_humidity">Humidity: %d%%</string>
+    <string name="weather_desc">Description: %s</string>
+    <string name="invalid_city_name" tools:ignore="PluralsCandidate">Please enter a valid city name (at least %d characters)</string>
+    <string name="enter_city_name">Enter city name</string>
+    <string name="btn_get_weather">Get Weather</string>
+    <string name="btn_clear">Clear</string>
+    <string name="no_result">No result found</string>
+
+    <string name="test_string_0_param" translatable="false">Text.</string>
+    <string name="test_string_1_param" translatable="false">Text %s.</string>
+    <string name="test_string_2_param" translatable="false">Text %s (%d).</string>
+</resources>

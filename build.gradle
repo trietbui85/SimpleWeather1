@@ -1,0 +1,55 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektPlugin
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias libs.plugins.daggerHiltPlugin apply false
+    alias libs.plugins.androidApplicationPlugin apply false
+    alias libs.plugins.kotlinAndroidPlugin apply false
+    alias libs.plugins.kotlinKaptPlugin apply false
+    alias libs.plugins.hiddenSecretPlugins apply false
+    alias libs.plugins.spotlessPlugin
+    alias libs.plugins.detektPlugin
+    alias libs.plugins.gradleVersionsPlugin
+    alias libs.plugins.versionCatalogUpdatePlugin
+}
+
+task detektReportMerge(type: ReportMergeTask) {
+    // ROOT_DIR/build/reports/detekt/merge.xml
+    output = project.layout.buildDirectory.file("reports/detekt/merge.xml")
+}
+
+apply from: "$project.rootDir/gradle/spotless_config.gradle"
+apply from: "$project.rootDir/gradle/detekt_config.gradle"
+apply from: "$project.rootDir/gradle/version_catalog_update.gradle"
+
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+            freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            freeCompilerArgs += "-Xopt-in=androidx.paging.ExperimentalPagingApi"
+            freeCompilerArgs += "-Xopt-in=kotlin.contracts.ExperimentalContracts"
+            freeCompilerArgs += "-Xopt-in=kotlin.Experimental"
+
+            jvmTarget = JavaVersion.VERSION_11
+        }
+    }
+
+    plugins.withType(DetektPlugin) {
+        tasks.withType(Detekt) { detektTask ->
+            finalizedBy(detektReportMerge)
+
+            detektReportMerge.configure { mergeTask ->
+                mergeTask.input.from(detektTask.xmlReportFile)
+            }
+        }
+    }
+}

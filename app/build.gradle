@@ -1,0 +1,83 @@
+plugins {
+    alias libs.plugins.daggerHiltPlugin
+    alias libs.plugins.androidApplicationPlugin
+    alias libs.plugins.kotlinAndroidPlugin
+    alias libs.plugins.kotlinKaptPlugin
+    alias libs.plugins.hiddenSecretPlugins
+}
+
+android {
+    namespace 'com.bmtriet.simpleweather'
+    compileSdkVersion libs.versions.compileSdkVersion.get().toInteger()
+
+    defaultConfig {
+        applicationId "com.bmtriet.simpleweather"
+        minSdkVersion libs.versions.minSdkVersion.get().toInteger()
+        targetSdkVersion libs.versions.targetSdkVersion.get().toInteger()
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "com.bmtriet.simpleweather.testutils.CustomTestRunner"
+    }
+
+    // Enable NDK build
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        // Determines whether to support View Binding.
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+}
+
+apply from: rootProject.file("gradle/android_lint_config.gradle")
+
+dependencies {
+
+    implementation libs.bundles.okHttpBundle
+
+    implementation libs.bundles.coroutinesBundle
+
+    // Dagger Hilt
+    implementation libs.bundles.daggerHiltBundle
+    kapt libs.daggerCompiler
+    kapt libs.daggerAndroidProcessor
+    kapt libs.daggerHiltCompiler
+    kaptTest libs.daggerHiltAndroidCompiler
+    kaptAndroidTest libs.daggerHiltAndroidCompiler
+
+    implementation libs.bundles.roomBundle
+    kapt libs.roomCompiler
+
+    implementation libs.bundles.fragmentBundle
+    implementation libs.bundles.coreUiBundle
+
+    implementation libs.bundles.lifecycleBundle
+
+    implementation libs.timber
+
+    testImplementation libs.bundles.unitTestBundle
+    androidTestImplementation libs.bundles.uiTestBundle
+}

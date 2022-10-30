@@ -1,0 +1,66 @@
+android {
+    /**
+     * - Lint syntax:
+     * https://developer.android.com/reference/tools/gradle-api/7.3/com/android/build/api/dsl/Lint
+     *
+     * - All Lint rues by severity:
+     * https://googlesamples.github.io/android-custom-lint-rules/checks/severity.md.html
+     */
+    lint {
+        // Will let each module to decide if it has its own lint-baseline.xml
+        // baseline file("lint-baseline.xml")
+        // Don't check all warnings since some of rules are off by default
+        checkAllWarnings false
+        warningsAsErrors true
+        abortOnError true
+        // set to true to have all release builds run lint on issues with severity=fatal
+        // and abort the build (controlled by abortOnError above) if fatal issues are found
+        checkReleaseBuilds false
+        // whether lint should include full issue explanations in the text error output
+        explainIssues true
+        // if true, generate an XML report for use by for example Jenkins
+        xmlReport false
+        // Normally most lint checks are not run on test sources (except the checks
+        // dedicated to looking for mistakes in unit or instrumentation tests, unless
+        // ignoreTestSources is true). You can turn on normal lint checking in all
+        // sources with the following flag, false by default:
+        checkTestSources false
+        // Like checkTestSources, but always skips analyzing tests -- meaning that it
+        // also ignores checks that have explicitly asked to look at test sources, such
+        // as the unused resource check.
+        ignoreTestSources true
+        // Normally lint will skip generated sources, but you can turn it on with this flag
+        checkGeneratedSources false
+        informational += [
+                // We will handle Lib Upgrade manually
+            'NewerVersionAvailable',
+            'GradleDependency',
+        ]
+        // Sometimes lint misses error, add this line to make sure that no error is ignored
+        error += [
+            'InconsistentLayout',
+        ]
+        // Sometimes lint misses warning, add this line to make sure that no warning is ignored
+        warning += [
+            'AppCompatCustomView',
+            'MissingDefaultResource',
+            'UseRequireInsteadOfGet',
+            'HardcodedText',
+            'NullSafeMutableLiveData',
+            'StringFormatMatches',
+            'ExifInterface',
+            'Orientation',
+            'InflateParams',
+            'ScrollViewSize',
+            'DefaultLocale',
+            'ObsoleteSdkInt',
+            'UnknownIdInLayout',
+            'UnusedAttribute',
+        ]
+        // turn off checking the given issue id - MUST write down the reason
+        disable += [
+            // Some resources are unused, but we might re-use them later
+            'UnusedResources',
+        ]
+    }
+}
