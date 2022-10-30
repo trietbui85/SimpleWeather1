@@ -43,45 +43,67 @@
 ## Project structure & diagram
 ### Structure
 | com.bmtriet.simpleweather
+
 |---- data
+
 |---- ---- local
+
 |---- ---- ----- dao
+
 |---- ---- ----- datasource
+
 |---- ---- ----- entity
+
 |---- ---- mapper
+
 |---- ---- network
+
 |---- ---- ----- datasource
+
 |---- ---- ----- error
+
 |---- ---- ----- interceptor
+
 |---- ---- ----- response
+
 |---- ---- ----- service
+
 |---- ---- repository
+
 |---- di
+
 |---- domain
+
 |---- ---- model
+
 |---- ---- reposity-interface
+
 |---- ---- usecase
+
 |---- presentation
+
 |---- ---- UI model
+
 |---- ---- adapter + viewholder
+
 |---- ---- home (Activity + Fragment + ViewModel)
-|---- ---- view
+
 |---- utils
 
 ## Diagram
 ![Database diagram](imgs/diagram_1.png "Entity relationship dialog")
 
 ## Checklist
-[x] Clean Architecture with MVVM.
-[x] Show the Weather Forecast in the ListView. Error handling as well as caching handling.
-[x] Secure the OpenWeatherMap API key (inside `.so`). There is no perfect solution to hide API key on the app side.
-[x] Testing: Unit + Instrumented.
-[x] Static code analysis.
-[x] Support accessibility (screen reader) with TalkBack
-[x] Support accessibility with TalkBack
+- [x] Clean Architecture with MVVM.
+- [x] Show the Weather Forecast in the ListView. Error handling as well as caching handling.
+- [x] Secure the OpenWeatherMap API key (inside `.so`). There is no perfect solution to hide API key on the app side.
+- [x] Testing: Unit + Instrumented.
+- [x] Static code analysis.
+- [x] Support accessibility (screen reader) with TalkBack
+- [x] Support accessibility with TalkBack
 
 ## Remaing things to do
 Due to time constraint, I cannot finish these thing. It would be the improvement later.
-[ ] Setup CI/CI workflow.
-[ ] Modularization (at least 4 modules: `data`, `domain`, `presentation`, `utils`).
-[ ] Try the Jetpack Compose as the replacement of XML layout.
+- [ ] Setup CI/CI workflow.
+- [ ] Modularization (at least 4 modules: `data`, `domain`, `presentation`, `utils`).
+- [ ] Try the Jetpack Compose as the replacement of XML layout.
