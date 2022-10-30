@@ -90,7 +90,7 @@
 
 |---- utils
 
-## Diagram
+### Diagram
 ![Database diagram](imgs/diagram_1.png "Entity relationship dialog")
 
 ## Checklist
