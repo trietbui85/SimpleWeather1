@@ -30,6 +30,7 @@
 - [Android Lint](https://developer.android.com/studio/write/lint).
 - Unit test: [MockK](https://github.com/mockk/mockk), [Robolectric](https://github.com/robolectric/robolectric), JUnit, [Turbine](https://github.com/cashapp/turbine), [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver), [AndroidX test](https://github.com/android/android-test).
 - UI (Instrumented test): [AndroidX test](https://github.com/android/android-test), [Espresso](https://developer.android.com/training/testing/espresso).
+- [Gradle Version Catalogs](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml) as a single source of truth of dependency version. Also use [version-catalog-update-plugin](https://github.com/littlerobots/version-catalog-update-plugin) to check for out-of-date dependencies.
 
 ## How to build & run
 - Requires tools/SDK: Android Studio Dolphin | 2021.3.1, Android SDK API level 33 & NDK, Java 11.
@@ -39,6 +40,7 @@
 - To run Android Lint: `./gradlew app:lintDebug`.
 - To run unit test: `./gradlew testDebugUnitTest`.
 - To run instrumented test: `./gradlew connectedAndroidTest`.
+- To check the out-of-date dependencies: `./gradlew dependencyUpdates -Drevision=release`.
 
 ## Project structure & diagram
 ### Structure
